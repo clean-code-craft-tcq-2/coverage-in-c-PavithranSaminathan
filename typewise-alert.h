@@ -28,6 +28,6 @@ void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double
 void sendToController(BreachType breachType);
 void sendToEmail(BreachType breachType);
 
-void (*AlerterTarget_FP)[MAX_ALERTER_TYPE](BreachType);
+void (*AlerterTarget_FP[MAX_ALERTER_TYPE])(BreachType);
 
-void (*MailAlertType_FP)[MAX_BREACH_TYPE](BreachType);
+void (*MailAlertType_FP[MAX_BREACH_TYPE])(BreachType);
