@@ -7,6 +7,12 @@ typedef enum {
   MAX_COOLING_TYPE
 } CoolingType;
 
+typedef enum {
+  NORMAL,
+  TOO_LOW,
+  TOO_HIGH,
+  MAX_BREACH_TYPE
+} BreachType;
 
 struct TempConfig
 {
@@ -14,4 +20,5 @@ struct TempConfig
   int UpperLimit;
 };
 
+extern const char *AlerterMailContent[MAX_BREACH_TYPE];
 extern const struct TempConfig TempConfig_A[MAX_COOLING_TYPE];
