@@ -8,7 +8,7 @@
 //  MED_ACTIVE_COOLING
 //} CoolingType;
 
-BreachType inferBreach(TempConfig_A ATempConfig, double temperatureInC);
+BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC)
 //BreachType inferBreach(double value, double lowerLimit, double upperLimit);
 BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
 
