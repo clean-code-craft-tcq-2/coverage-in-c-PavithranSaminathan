@@ -8,10 +8,6 @@
 //  MED_ACTIVE_COOLING
 //} CoolingType;
 
-BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC)
-//BreachType inferBreach(double value, double lowerLimit, double upperLimit);
-BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
-
 typedef enum {
   TO_CONTROLLER,
   TO_EMAIL,
@@ -22,6 +18,13 @@ typedef struct {
   CoolingType coolingType;
 //  char brand[48];
 } BatteryCharacter;
+
+
+BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC);
+//BreachType inferBreach(double value, double lowerLimit, double upperLimit);
+BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
+
+
 
 void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
