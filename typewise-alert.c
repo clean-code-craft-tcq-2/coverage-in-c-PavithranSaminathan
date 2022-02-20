@@ -1,7 +1,7 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
-void (*AlerterTarget_FP[2])(BreachType)={sendToController,sendToEmail};
+void (*AlerterTarget_FP)(BreachType)={sendToController,sendToEmail};
 
 BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC) {
   if(TempConfig_A[batteryChar.coolingType].LowerLimit > temperatureInC) 
