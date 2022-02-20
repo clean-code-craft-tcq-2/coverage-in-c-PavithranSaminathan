@@ -3,12 +3,12 @@
 
 void (*AlerterTarget_FP)[2](BreachType)={sendToController,sendToEmail};
 
-BreachType inferBreach(TempConfig_A ATempConfig, double temperatureInC) {
-  if(TempConfig_A.LowerLimit > temperatureInC) 
+BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC) {
+  if(TempConfig_A[batteryChar.CoolingType].LowerLimit > temperatureInC) 
   {
     return TOO_LOW;
   }
-  if(TempConfig_A.UpperLimit < temperatureInC) 
+  if(TempConfig_A[batteryChar.CoolingType].UpperLimit < temperatureInC) 
   {
     return TOO_HIGH;
   }
@@ -18,7 +18,7 @@ BreachType inferBreach(TempConfig_A ATempConfig, double temperatureInC) {
 void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
 {
  //Temperature configuration read from cfg file based on cooling type
-  BreachType breachType = inferBreach(TempConfig_A[batteryChar.coolingType], temperatureInC);
+  BreachType breachType = inferBreach(batteryChar,temperatureInC);
  //
   AlerterTarget_FP[alertTarget](breachType);
 }
