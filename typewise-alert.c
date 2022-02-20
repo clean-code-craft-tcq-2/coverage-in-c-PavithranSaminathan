@@ -3,12 +3,12 @@
 
 void (*AlerterTarget_FP)[2](BreachType)={sendToController,sendToEmail};
 
-BreachType inferBreach(TempConfig ATempConfig, double double temperatureInC) {
-  if(ATempConfig.LowerLimit > temperatureInC) 
+BreachType inferBreach(TempConfig_A ATempConfig, double temperatureInC) {
+  if(TempConfig_A.LowerLimit > temperatureInC) 
   {
     return TOO_LOW;
   }
-  if(ATempConfig.UpperLimit < temperatureInC) 
+  if(TempConfig_A.UpperLimit < temperatureInC) 
   {
     return TOO_HIGH;
   }
