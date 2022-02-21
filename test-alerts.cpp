@@ -25,9 +25,9 @@ TEST_CASE("CheckAndAlert-TOOHIGH -SENTTOCONTROLLER")
   REQUIRE(checkAndAlert(TO_CONTROLLER,batteryChar,55) == SENTTOCONTROLLER);
 }
 
-TEST_CASE("CheckAndAlert-TOOHIGH -SENTTOCONTROLLER") 
+TEST_CASE("CheckAndAlert-TOOHIGH -SENTTOEMAIL") 
 {
   BatteryCharacter batteryChar = {PASSIVE_COOLING};
-  REQUIRE(checkAndAlert(TO_EMAIL,batteryChar,55) == SENTTOCONTROLLER);
+  REQUIRE(checkAndAlert(TO_EMAIL,batteryChar,55) == SENTTOEMAIL);
 }
 
