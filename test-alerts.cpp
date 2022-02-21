@@ -18,3 +18,9 @@ TEST_CASE("Battery char belongs to PASSIVE COOLING -Normal")
  BatteryCharacter batteryChar = {PASSIVE_COOLING};
   REQUIRE(inferBreach(batteryChar, 10) == NORMAL);
 }
+
+TEST_CASE("CheckAndAlert-TOOHIGH -SENTTOCONTROLLER") 
+{
+  BatteryCharacter batteryChar = {PASSIVE_COOLING};
+  REQUIRE(checkAndAlert(TO_CONTROLLER,batteryChar,55) == SENTTOCONTROLLER);
+}
