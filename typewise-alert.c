@@ -15,12 +15,14 @@ BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC) {
   return NORMAL;
 }
 
-void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
+MessageACK checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
 {
  //Temperature configuration read from cfg file based on cooling type
   BreachType breachType = inferBreach(batteryChar,temperatureInC);
  //
   MessageACK SentACK =AlerterTarget_FP[alertTarget](breachType);
+  
+  return MessageACK;
 }
 
 MessageACK sendToController(BreachType breachType) {
