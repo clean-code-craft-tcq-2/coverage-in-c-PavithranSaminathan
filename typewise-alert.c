@@ -22,7 +22,7 @@ MessageACK checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, 
  //
   MessageACK SentACK =AlerterTarget_FP[alertTarget](breachType);
   
-  return MessageACK;
+  return SentACK;
 }
 
 MessageACK sendToController(BreachType breachType) {
