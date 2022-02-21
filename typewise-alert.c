@@ -20,21 +20,24 @@ void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double
  //Temperature configuration read from cfg file based on cooling type
   BreachType breachType = inferBreach(batteryChar,temperatureInC);
  //
-  AlerterTarget_FP[alertTarget](breachType);
+  MessageACK SentACK =AlerterTarget_FP[alertTarget](breachType);
 }
 
-void sendToController(BreachType breachType) {
+MessageACK sendToController(BreachType breachType) {
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
+  return SENTTOCONTROLLER;
 }
 
 void SendEmail(const char* AMessageData ,const char* ARecepient )
 {
   printf("To: %s\n", ARecepient);
   printf("%s",AMessageData);
+  
 }
-void sendToEmail(BreachType breachType) 
+MessageACK sendToEmail(BreachType breachType) 
 {
   const char* recepient = "a.b@c.com";
   SendEmail(AlerterMailContent[breachType],recepient);
+  return SENTTOEMAIL;
 }
