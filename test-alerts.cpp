@@ -50,30 +50,30 @@ TEST_CASE("Battery char belongs to HI ACTIVE COOLING  -NORMAL")
 /********************************************************************************************/
 
 
-TEST_CASE("Battery character belongs to MED ACTIVE COOLING -Temperature breach high value")
+TEST_CASE("Battery character belongs to MED ACTIVE COOLING -Temperature breach high value_1")
 {
  BatteryCharacter batteryChar = {MED_ACTIVE_COOLING};
   REQUIRE(inferBreach(batteryChar, 41) == TOO_HIGH);
 }
-TEST_CASE("Battery character belongs to MID ACTIVE COOLING -Temperature breach high value")
+TEST_CASE("Battery character belongs to MED ACTIVE COOLING -Temperature breach high value_2")
 {
  BatteryCharacter batteryChar = {MED_ACTIVE_COOLING};
   REQUIRE(inferBreach(batteryChar, 40) == NORMAL);
 }
-TEST_CASE("Battery char belongs to MID ACTIVE COOLING -Temperature is too low") 
+TEST_CASE("Battery char belongs to MED ACTIVE COOLING -Temperature is too low_1") 
 {
  BatteryCharacter batteryChar = {MED_ACTIVE_COOLING};
   REQUIRE(inferBreach(batteryChar, -1) == TOO_LOW);
 }
 
 
-TEST_CASE("Battery char belongs to MID ACTIVE COOLING -Temperature is too low") 
+TEST_CASE("Battery char belongs to MED ACTIVE COOLING -Temperature is too low_2") 
 {
  BatteryCharacter batteryChar = {MED_ACTIVE_COOLING};
   REQUIRE(inferBreach(batteryChar, 0) == NORMAL);
 }
 
-TEST_CASE("Battery char belongs to MID ACTIVE COOLING -Temperature in normal") 
+TEST_CASE("Battery char belongs to MED ACTIVE COOLING -Temperature in normal") 
 {
  BatteryCharacter batteryChar = {MED_ACTIVE_COOLING};
   REQUIRE(inferBreach(batteryChar, 22) == NORMAL);
