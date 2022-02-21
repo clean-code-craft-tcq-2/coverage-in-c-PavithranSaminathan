@@ -4,6 +4,6 @@
 #include "typewise-alert.h"
 
 TEST_CASE("infers the breach according to limits") {
-  batteryChar.coolingType = PASSIVE_COOLING;
-  REQUIRE(inferBreach(BatteryCharacter batteryChar, 55) == TOO_HIGH);
+ BatteryCharacter batteryChar.coolingType = PASSIVE_COOLING;
+  REQUIRE(inferBreach(batteryChar, 55) == TOO_HIGH);
 }
