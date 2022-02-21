@@ -8,6 +8,12 @@
 //  MED_ACTIVE_COOLING
 //} CoolingType;
 
+
+typedef enum {
+  SENTTOCONTROLLER,
+  SENTTOEMAIL
+}MessageACK;
+
 typedef enum {
   TO_CONTROLLER,
   TO_EMAIL,
