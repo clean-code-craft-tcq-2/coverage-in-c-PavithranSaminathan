@@ -1,71 +1,51 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
-BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
-  if(value < lowerLimit) {
+MessageACK (*AlerterTarget_FP[MAX_ALERTER_TYPE])(BreachType)={sendToController,sendToEmail};
+
+
+/* This function will alert temperature level */
+BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC) 
+{
+  if(TempConfig_A[batteryChar.coolingType].LowerLimit > temperatureInC) 
+  {
     return TOO_LOW;
   }
-  if(value > upperLimit) {
+  if(TempConfig_A[batteryChar.coolingType].UpperLimit < temperatureInC) 
+  {
     return TOO_HIGH;
   }
   return NORMAL;
 }
 
-BreachType classifyTemperatureBreach(
-    CoolingType coolingType, double temperatureInC) {
-  int lowerLimit = 0;
-  int upperLimit = 0;
-  switch(coolingType) {
-    case PASSIVE_COOLING:
-      lowerLimit = 0;
-      upperLimit = 35;
-      break;
-    case HI_ACTIVE_COOLING:
-      lowerLimit = 0;
-      upperLimit = 45;
-      break;
-    case MED_ACTIVE_COOLING:
-      lowerLimit = 0;
-      upperLimit = 40;
-      break;
-  }
-  return inferBreach(temperatureInC, lowerLimit, upperLimit);
+MessageACK checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
+{
+ /*Temperature configuration read from cfg file based on battery configuration*/
+  BreachType breachType = inferBreach(batteryChar,temperatureInC);
+ /*Alert message will pass to controller or Email */
+  MessageACK SentACK =AlerterTarget_FP[alertTarget](breachType);
+  
+  return SentACK;
 }
 
-void checkAndAlert(
-    AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
-
-  BreachType breachType = classifyTemperatureBreach(
-    batteryChar.coolingType, temperatureInC
-  );
-
-  switch(alertTarget) {
-    case TO_CONTROLLER:
-      sendToController(breachType);
-      break;
-    case TO_EMAIL:
-      sendToEmail(breachType);
-      break;
-  }
-}
-
-void sendToController(BreachType breachType) {
+/*Alerter message passing in to controller*/ 
+MessageACK sendToController(BreachType breachType) 
+{
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
+  return SENTTOCONTROLLER;
 }
 
-void sendToEmail(BreachType breachType) {
+void SendEmail(const char* AMessageData ,const char* ARecepient )
+{
+  printf("To: %s\n", ARecepient);
+  printf("%s",AMessageData);
+  
+}
+/*Alerter message passing via Email*/
+MessageACK sendToEmail(BreachType breachType) 
+{
   const char* recepient = "a.b@c.com";
-  switch(breachType) {
-    case TOO_LOW:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too low\n");
-      break;
-    case TOO_HIGH:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too high\n");
-      break;
-    case NORMAL:
-      break;
-  }
+  SendEmail(AlerterMailContent[breachType],recepient);
+  return SENTTOEMAIL;
 }

@@ -1,32 +1,28 @@
 #pragma once
 
-typedef enum {
-  PASSIVE_COOLING,
-  HI_ACTIVE_COOLING,
-  MED_ACTIVE_COOLING
-} CoolingType;
+#include "Alerter_cfg.h"
 
 typedef enum {
-  NORMAL,
-  TOO_LOW,
-  TOO_HIGH
-} BreachType;
-
-BreachType inferBreach(double value, double lowerLimit, double upperLimit);
-BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
+  SENTTOCONTROLLER,
+  SENTTOEMAIL
+}MessageACK;
 
 typedef enum {
   TO_CONTROLLER,
-  TO_EMAIL
+  TO_EMAIL,
+  MAX_ALERTER_TYPE
 } AlertTarget;
 
 typedef struct {
   CoolingType coolingType;
-  char brand[48];
 } BatteryCharacter;
 
-void checkAndAlert(
-  AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
+BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC);
+BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
+
+MessageACK checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+
+MessageACK sendToController(BreachType breachType);
+MessageACK sendToEmail(BreachType breachType);
+
