@@ -34,8 +34,8 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
 
 void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
+MessageACK sendToController(BreachType breachType);
+MessageACK sendToEmail(BreachType breachType);
 
 //void (*AlerterTarget_FP[MAX_ALERTER_TYPE])(BreachType);
 
