@@ -3,7 +3,10 @@
 
 MessageACK (*AlerterTarget_FP[MAX_ALERTER_TYPE])(BreachType)={sendToController,sendToEmail};
 
-BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC) {
+
+/* This function will alert temperature level */
+BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC) 
+{
   if(TempConfig_A[batteryChar.coolingType].LowerLimit > temperatureInC) 
   {
     return TOO_LOW;
@@ -17,15 +20,17 @@ BreachType inferBreach( BatteryCharacter batteryChar, double temperatureInC) {
 
 MessageACK checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) 
 {
- //Temperature configuration read from cfg file based on cooling type
+ /*Temperature configuration read from cfg file based on battery configuration*/
   BreachType breachType = inferBreach(batteryChar,temperatureInC);
- //
+ /*Alert message will pass to controller or Email */
   MessageACK SentACK =AlerterTarget_FP[alertTarget](breachType);
   
   return SentACK;
 }
 
-MessageACK sendToController(BreachType breachType) {
+/*Alerter message passing in to controller*/ 
+MessageACK sendToController(BreachType breachType) 
+{
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
   return SENTTOCONTROLLER;
@@ -37,6 +42,7 @@ void SendEmail(const char* AMessageData ,const char* ARecepient )
   printf("%s",AMessageData);
   
 }
+/*Alerter message passing via Email*/
 MessageACK sendToEmail(BreachType breachType) 
 {
   const char* recepient = "a.b@c.com";
