@@ -32,7 +32,7 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
 
 
 
-void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+MessageACK checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 MessageACK sendToController(BreachType breachType);
 MessageACK sendToEmail(BreachType breachType);
